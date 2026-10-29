@@ -4,6 +4,7 @@
   "features": {},
   "postCreateCommand": "python -m pip install -r requirements.txt",
   "postStartCommand": "bash RUN_CODESPACE.sh",
+  "postAttachCommand": "bash RUN_CODESPACE.sh",
   "forwardPorts": [8000],
   "portsAttributes": {
     "8000": {
