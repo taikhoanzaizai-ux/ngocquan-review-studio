@@ -1,0 +1,220 @@
+REVIEW STUDIO 0.27.4 — DỰNG & LỒNG TIẾNG VIDEO TIKTOK HÀNG LOẠT
+
+CẬP NHẬT
+Từ bản 0.13: không cần tải lại ZIP. Trong ứng dụng bấm nút ⟳ (góc phải
+trên cùng) → Cập nhật ngay → Khởi động lại. Hoặc đóng ứng dụng rồi bấm
+đúp UPDATE_WINDOWS.bat. Chỉ các file
+thay đổi được tải từ GitHub; video, MP3, dự án, cài đặt (.local) giữ nguyên.
+Lần đầu chuyển từ bản 0.12.1 trở về trước: đóng bản cũ, giải nén
+ReviewStudio-v0.13.zip vào thư mục mới, chép thư mục .local của bản cũ sang
+nếu muốn giữ video/MP3/dự án. Không chạy từ trong ZIP.
+
+CÀI MỘT LẦN
+Windows: chỉ cần bấm đúp START_WINDOWS.bat, không phải tự tìm hay cài gì.
+- Chưa có Python: tự cài Python 3.12 bằng winget (có sẵn trên Windows 10/11).
+- Chưa có FFmpeg (hoặc bản thiếu drawtext/libx264): tự tải bản đầy đủ cho Windows
+  (khoảng 200 MB, chỉ tải 1 lần, có phụ đề chữ chạy và NVENC) vào thư mục bin của ứng dụng.
+  Không cài vào hệ thống; xóa thư mục bin là gỡ.
+Không cần Node.js, pip hay npm. Font tiếng Việt kèm sẵn.
+
+Cài tay (khi máy không có mạng hoặc không có winget):
+  winget install --exact --id Python.Python.3.12
+  winget install --exact --id Gyan.FFmpeg
+Hoặc cài Python từ https://www.python.org/downloads/ (chọn Add Python to PATH),
+và đặt ffmpeg.exe + ffprobe.exe trong thư mục bin cạnh launch.py.
+
+CHẠY
+Ứng dụng chạy trên Windows 10/11: nhấp đúp START_WINDOWS.bat. Giữ cửa sổ cmd mở khi dùng;
+tắt bằng Ctrl+C trong cửa sổ đó hoặc nút nguồn ở góc phải thanh trên cùng.
+Trình duyệt tự mở http://127.0.0.1:8000. Mở lần nữa khi đang chạy chỉ mở lại trình duyệt. Cổng bận: đóng bản cũ hoặc chọn cổng khác:
+  PowerShell: $env:PORT='8001'; python launch.py
+
+CÁC BƯỚC DÙNG
+1. API KEY: bấm "API key" trên thanh trên cùng, dán key OpenAI và ai33.pro, bấm Lưu.
+   Key lưu trong thư mục .local trên máy này (không vào ZIP, không vào bản cập nhật).
+   Không gửi key trong chat.
+2. VIDEO ĐẦU VÀO: kéo thả MP4, chọn file hoặc "Thư mục trên máy" (không chép video).
+   Nút 💡 trên từng video: gợi ý sản phẩm cho AI. Ô 💡 đầu danh sách: gợi ý chung cho cả lô.
+3. GIAO DIỆN VIDEO: Nền & khung, Tiêu đề, Nội dung, Cắt & vị trí video, Điều chỉnh màu,
+   Overlay, Lớp ảnh. Mỗi nhóm có công tắc bật/tắt; khung xem trước cập nhật ngay, kéo
+   hộp chữ / ảnh trực tiếp. Ctrl+Z / Ctrl+Y hoàn tác, Alt + mũi tên dịch hộp đang chọn.
+4. NHẬN DIỆN, DỊCH & VIẾT CHỮ: văn phong, xưng hô, model OpenAI, kiểu tiêu đề, giới hạn
+   ký tự. "Sửa mẫu ›" để sửa câu lệnh gửi AI. AI xem 3 khung hình của video và viết
+   3 tiêu đề + 2 nội dung + tên file + tags trong 1 lần gọi.
+5. GIỌNG ĐỌC AI33: chọn giọng, ▶ Nghe thử, chọn từ điển phát âm (↻ để tải danh sách).
+6. THÔNG SỐ VIDEO XUẤT (nút "1080 × 1920 · 30 FPS" trên thanh trên): độ phân giải,
+   khung hình tối đa, chất lượng, bộ mã hóa (tự dùng card NVIDIA nếu có), âm lượng,
+   thư mục lưu, thông tin file (tác giả, link kênh, bản quyền, đánh giá, ngày tạo).
+7. LƯU MẪU: lưu mọi thông số trên, cả câu lệnh. Chọn mẫu là áp dụng lại tất cả.
+8. BẮT ĐẦU: hộp kiểm tra hiện thời lượng, chi phí ước tính, video dùng lại kết quả cũ.
+   Hàng đợi chạy 1–4 video cùng lúc (mục "Xuất & chạy hàng loạt"). Bật "Dừng lại để
+   duyệt chữ AI" thì duyệt / sửa tiêu đề, nội dung, tên file trong một bảng rồi Xuất tất cả.
+
+HÀNG ĐỢI
+- Bấm vào video: xem video xuất, sửa tên file, đổi phương án chữ AI, sửa bản dịch.
+- Lỗi mạng tạm thời tự thử lại 3 lần. Đóng/mở lại app thì tự chạy tiếp video đang dở
+  (tắt được). Chạy lại cùng video chỉ đổi giao diện thì dùng lại bản dịch và giọng.
+- Nút 💾 Dọn file tạm: xóa file tạm của video đã xong (giữ giọng, bản dịch, video xuất).
+- Video xuất lưu 1 bản trong thư mục xuất (cùng ổ đĩa không tốn thêm chỗ).
+
+TÁCH GIỌNG AI (DEMUCS)
+Mục Âm thanh gốc → "Cài Demucs tự động" (1–3 GB, một lần). Mỗi video cần khoảng
+3–4 GB RAM/VRAM; chọn số video tách cùng lúc ở mục "Xuất & chạy hàng loạt" (mặc định 1).
+
+DỮ LIỆU VÀ GIỚI HẠN
+Video nguồn, hàng đợi, MP3, mẫu nằm trong .local. Video không dùng quá 30 ngày tự xóa
+khi mở app (đặt REVIEW_KEEP_DAYS=0 để tắt), trừ video còn trong hàng đợi chưa xong.
+Chỉ dùng trên máy này. Chưa gọi thử OpenAI / ai33 thật, NVENC và ghi Tags của Windows
+trên máy thật: hãy chạy thử 1–2 video trước khi chạy lô lớn.
+
+NÂNG CẤP 0.40.0
+- Tắt app (nút nguồn, đóng cửa sổ đen, Ctrl+C) dừng luôn mọi FFmpeg / Demucs, không còn chạy ngầm.
+- Video đang lồng tiếng khi tắt app sẽ tự chạy tiếp lần mở sau; lỗi bất ngờ không làm đứng hàng đợi.
+
+NÂNG CẤP 0.39.0
+- Hàng đợi chia trang (10/20/50/100 video mỗi trang), khung vừa màn hình, danh sách cuộn bên trong.
+
+NÂNG CẤP 0.38.0
+- Overlay: mỗi lúc 1 overlay, thiếu thời lượng thì ghép nối thêm overlay ngẫu nhiên (không chồng lên nhau).
+- Sửa các nút căn của video, lớp ảnh, overlay, chữ (khác tỷ lệ, giữ toàn bộ, xoay).
+
+NÂNG CẤP 0.37.0
+- Vị trí X/Y của video, lớp ảnh, overlay nhập bằng px (theo video xuất); X/Y chỉ dời hình, không còn tự zoom. Zoom chỉnh riêng ở Tỷ lệ.
+
+NÂNG CẤP 0.36.0
+- Căn chỉnh video overlay kiểu CapCut: thu phóng, vị trí, căn 9 điểm, xoay, lật, Lấp đầy/Vừa khung; kéo overlay trên xem trước khi mục Overlay đang mở.
+- Bấm ra ngoài (hoặc Esc) để bỏ chọn khung chữ; bấm vào tiêu đề/nội dung trên xem trước là mở mục thuộc tính của nó.
+- Nút "Căn khung" của chữ căn theo mép khung nền (đổi được sang "Theo màn hình").
+
+NÂNG CẤP 0.35.1
+- Sửa "Kiểm tra hệ thống" đứng ở "Đang kiểm tra…"; kiểm tra nhanh hơn.
+
+NÂNG CẤP 0.35.0
+- Nút "🩺 Kiểm tra" trên thanh trên cùng: kiểm tra FFmpeg, key, ổ đĩa, phông chữ... và chỉ cách sửa từng mục.
+
+NÂNG CẤP 0.34.0
+- Khung xem trước tự vừa màn hình; thanh phát kiểu CapCut với nút Tỷ lệ (9:16, 16:9, 1:1, 4:5, Gốc) và toàn màn hình.
+
+NÂNG CẤP 0.33.1
+- Xuất lại áp dụng cả nguồn chữ tiêu đề/nội dung và "Âm thanh gốc" mới; nút "✍ Viết chữ AI" khi chọn AI mà chưa có chữ.
+- Chạy thử 1 video báo lỗi rõ khi nạp không được; thời gian còn lại ước tính đúng sau khi xuất lại.
+
+NÂNG CẤP 0.33.0
+- Sửa lỗi lớp ảnh trong mẫu thiết kế, báo key đúng chỗ, không báo nhầm lỗi tiện ích trình duyệt.
+- Bỏ nút "Xuất lại ngay"; đổi tên "File phụ đề .srt", "Lấp đầy · không viền"; Phụ đề chữ chạy nằm cạnh mục Xuất.
+- Kiểm tra trước khi chạy báo sớm: thiếu libass, kho nhạc trống, phụ đề đè chữ hoặc nằm trong vùng TikTok che.
+- Tùy chọn "Ghi đè file cũ khi xuất lại"; xem trước phụ đề bằng lời thật khi đang sửa.
+
+NÂNG CẤP 0.32.0
+- START_WINDOWS.bat tự cài Python (winget) và tự tải FFmpeg vào thư mục bin khi máy chưa có.
+
+NÂNG CẤP 0.31.5
+- Trình duyệt quá cũ hoặc lỗi giao diện sẽ hiện thanh thông báo ở cuối trang (vàng: trình duyệt cũ, đỏ: lỗi + tên file, dòng). Chụp gửi người hỗ trợ.
+
+NÂNG CẤP 0.31.4
+- Trình duyệt bật chế độ tối tự động hoặc Dark Reader không còn làm sai màu giao diện.
+- Nếu vẫn thấy mọi nút viền trắng, nền xám: tắt chế độ tương phản cao của Windows (Settings → Accessibility → Contrast themes → None) và dùng Chrome hoặc Edge bản mới.
+
+NÂNG CẤP 0.31.3
+- Hết dải mờ ở mép phải khi bật Lớp ảnh (ánh sáng dịu…) hoặc overlay chế độ Màn hình.
+
+NÂNG CẤP 0.31.2
+- Xoay video không còn kéo dải mép mờ của video gốc vào 4 góc (vệt mờ chéo).
+
+NÂNG CẤP 0.31.1
+- Sửa & xuất lại: video đang sửa hiện ở mục Video đầu vào (bấm để xem trước), nút chính thành "⟳ Xuất lại N video", luôn render theo thông số đang chỉnh.
+
+NÂNG CẤP 0.31.0
+- "✎ Sửa" ở mỗi video trong hàng đợi: mở lại video gốc với thông số cũ, chỉnh khung / lớp / phụ đề / nhạc rồi xuất lại; giữ nguyên bản dịch và giọng (không gọi lại API).
+- Sửa hàng loạt: tick nhiều video → "✎ Sửa & xuất lại" → "⟳ Xuất lại N video".
+
+NÂNG CẤP 0.30.3
+- Hiện lại lưới căn 9 ô và các nút nhanh (Giữa, xoay, lật, zoom) ở "Cắt & vị trí video".
+
+NÂNG CẤP 0.30.2
+- Nút "Chạy thử 1" và "Lồng tiếng N video" nằm chung một cụm trên cùng một hàng.
+
+NÂNG CẤP 0.30.1
+- Các mục ở tab Lồng tiếng xếp theo trình tự: video đầu vào → lời & giọng → âm thanh → hình ảnh → chữ, phụ đề, lớp → xuất.
+
+NÂNG CẤP 0.30.0
+- Phụ đề chữ chạy (mục 💬, có công tắc): từ đang đọc sáng lên, 9 kiểu + 12 mẫu nhanh, kéo chữ mẫu trên xem trước để đặt vị trí. Cần FFmpeg bản "full" (có libass).
+- 7 phông mới có đủ dấu tiếng Việt.
+- Nhạc nền (mục 🎶, có công tắc): kho nhạc riêng, gắn văn phong cho từng bài, tự giảm khi có giọng.
+- Nút "🧪 Chạy thử 1 video" trước khi chạy cả lô.
+
+NÂNG CẤP 0.29.0
+- Thứ tự lớp: ô dưới khung xem trước, bấm ‹ › để xếp Video / Nền / Video overlay / Lớp ảnh; xem trước đổi ngay.
+- Hàng đợi mới: thanh tiến độ + thời gian còn lại, tick chọn nhiều video (chạy, dừng, ưu tiên, xuất lại, xóa), tìm kiếm, lọc theo bước, lỗi gom nhóm có cách xử lý, báo khi cả lô xong.
+- "Chạy lại lỗi" chỉ chạy video lỗi (video chờ duyệt vẫn chờ bạn duyệt).
+- Văn phong có hồ sơ chi tiết + "Độ hào hứng"; kiểu tiêu đề tự chọn theo văn phong.
+
+NÂNG CẤP 0.28.2
+- Bỏ hết video đầu vào thì khung xem trước trống ngay (không còn hiện video cũ).
+
+NÂNG CẤP 0.28.1
+- Bỏ cảnh báo Copyright "Access Denied" (Copyright vẫn được ghi đúng khi xuất).
+
+NÂNG CẤP 0.28.0
+- Ô key ở tab Lồng tiếng hiện số credit ai33 còn lại và số tiền OpenAI app đã dùng trong tháng (ước tính).
+- Lớp ảnh và Overlay có công tắc bật/tắt ở tiêu đề mục.
+
+NÂNG CẤP 0.27.6
+- "Giữ toàn bộ" (viền đen / nền mờ) không còn để dải mờ 1–2 px ở cạnh khi video gần đúng tỷ lệ khung (vd sau Cắt viền mép).
+
+NÂNG CẤP 0.27.5
+- "Lấp đầy · cắt viền" + xoay/dịch X/Y: tự phóng vừa đủ để không còn góc đen, viền mờ ở mép video.
+
+NÂNG CẤP 0.27.4
+- Sửa lỗi "charmap codec" khi ghi thông tin file; hàng đợi báo đúng tên trường Windows chưa ghi được.
+
+NÂNG CẤP 0.27.3
+- Tên file AI đặt dài 30–45 ký tự (6–9 từ). Contributing artists (nhóm Media) không còn bị điền.
+
+NÂNG CẤP 0.27.2
+- Sửa lỗi "Windows không ghi được Tags / đánh giá / link kênh (… GPS_READWRITE)": nay ghi được nhóm Origin, Tags, đánh giá.
+- Mục Cắt & vị trí video có lại nút căn chỉnh (⊕ Giữa khung, căn trái/phải/trên/dưới), kích thước nhanh, zoom, xoay.
+- Ô "Cắt viền mép" (px mỗi cạnh): bỏ mép nhòe / viền sáng của video gốc, thường 2–6 px.
+
+NÂNG CẤP 0.27.1
+- Sửa lỗi Directors / Producers / Writers / Publisher / Author URL / Promotion URL trống; thêm Content provider.
+- Không ghi nhóm Media (Contributing artists, Year). Nếu vẫn trống: mở video trong hàng đợi, xem dòng
+  "⚠ Thông tin file: …" để biết trường nào Windows chưa ghi được.
+
+NÂNG CẤP 0.27.0
+- Độ phân giải, khung hình, chất lượng trong Thông số video xuất áp dụng cho video hàng loạt
+  (thêm "Theo video gốc"). Bộ mã hóa và âm lượng chỉ còn một chỗ.
+- Cắt đầu/cuối không nén thêm lần nào; mỗi video xuất lưu 1 bản.
+- Không xóa video gốc còn trong hàng đợi; tự chạy tiếp hàng đợi khi mở lại app.
+- CPU dùng hết số nhân; chọn số video tách giọng Demucs cùng lúc; hàng đợi nhẹ hơn.
+- Nút 💾 Dọn file tạm; chọn từ điển phát âm theo tên; Ctrl+Z / Alt+mũi tên trên khung xem trước.
+- Gỡ trình dựng 1 video cũ không còn dùng.
+
+NÂNG CẤP 0.26.1
+- Ngày tạo (Media created) trong thông tin file: lùi ngẫu nhiên 5–7 ngày so với ngày xuất, chỉnh được ở ô Ngày tạo (0 – 0 = ngày xuất).
+
+NÂNG CẤP 0.26.0
+- Đổi tên file: bấm vào video trong hàng đợi → ô Tên file → Đổi tên (đổi luôn file đã lưu). Bảng duyệt chữ cũng có ô tên file.
+- Title trong thông tin file là tên video tiếng Việt có dấu do AI viết.
+
+NÂNG CẤP 0.25.0
+- Bấm nút thông số xuất (1080 × 1920 · 30 FPS) trên thanh trên: hộp chia nhóm Video / Âm thanh / Lưu file / Thông tin file.
+- Thông tin file có công tắc bật/tắt: điền Tác giả, Link kênh, Nhà phát hành, Bản quyền, Đánh giá sao một lần cho cả lô.
+  Tiêu đề và Tags mỗi video do AI viết. Không chép metadata của video gốc, không ghi "Encoded by".
+  Tags, đánh giá, link kênh cần pywin32: lần đầu ứng dụng tự cài (cần Internet). Xem kết quả: chuột phải file → Properties → Details.
+
+NÂNG CẤP 0.24.0
+- Bỏ tab Dịch & biên tập AI (cùng chế độ Thủ công, Gemini). Thanh trên còn Dựng & lồng tiếng và Âm thanh ai33.
+- Sửa mẫu câu lệnh: mục Nhận diện, dịch & viết chữ → "Sửa mẫu ›" (lưu nhiều mẫu, khôi phục mặc định).
+- Bấm "Lưu mẫu" là lưu luôn câu lệnh; chọn mẫu là đổi cả câu lệnh.
+- Ô 💡 gợi ý chung cho cả lô ở đầu danh sách video (video có gợi ý riêng thì dùng gợi ý riêng).
+
+NÂNG CẤP 0.23.0
+- AI xem 3 khung hình của video trong cùng lần dịch để gọi đúng sản phẩm (tắt được ở mục Nhận diện & dịch).
+- Nút 💡 cạnh mỗi video: gõ gợi ý sản phẩm (ví dụ "kệ gia vị nhà bếp"), không bắt buộc.
+- AI viết 3 tiêu đề + 2 nội dung, app chọn cái vừa giới hạn; đổi phương án bằng nút số trong hàng đợi / bảng duyệt.
+- Mục Tiêu đề có "Kiểu tiêu đề": câu hỏi, nỗi đau → giải pháp, lợi ích, gây tò mò hoặc để AI tự chọn.
+- Tên file có tên dự phòng khi trùng. Lỗi mạng tạm thời tự thử lại 3 lần.
+- Chạy lại cùng video chỉ đổi giao diện thì dùng lại bản dịch và giọng cũ, không tốn API (tắt được).
+- Mục Giọng đọc có nút ▶ Nghe thử một câu bằng giọng đang chọn.
+- Tab Dịch & biên tập AI làm lại 3 cột, cùng quy tắc chữ với tab Dựng.

@@ -1,0 +1,387 @@
+{
+ "app": "ReviewStudio",
+ "version": "0.40.0",
+ "notes": "## Mới trong 0.40.0 · rà soát toàn bộ\n\n- **Tắt app sạch sẽ:** bấm ⏻ (hoặc khởi động lại sau cập nhật) giờ dừng luôn mọi FFmpeg / Demucs đang chạy. Trước đây trên Windows chúng vẫn chạy ngầm sau khi tắt (ăn CPU, giữ khóa file video). Trên Windows, app và mọi tiến trình con còn được gắn với cửa sổ đen: đóng cửa sổ, Ctrl+C hay app bị treo/crash cũng không để lại FFmpeg nào. Cửa sổ thư mục mở bằng nút \"Mở thư mục\" và trình duyệt không bị đóng theo.\n- **Video đang lồng tiếng khi tắt app** không bị đánh dấu lỗi: mở lại app sẽ tự chạy tiếp từ bước đang dở.\n- **Hàng đợi không còn có thể \"đứng im\":** một lỗi bất ngờ trong 1 video trước đây có thể làm dừng luồng xử lý (các video sau không chạy nữa) và để video đó kẹt mãi ở \"đang chạy\". Giờ video đó báo lỗi rõ ràng, hàng đợi chạy tiếp.\n- **Lỗi máy chủ luôn có thông báo:** mọi lỗi bất ngờ (kể cả ổ đĩa đầy) trả về câu báo lỗi dễ hiểu thay vì \"Không thể kết nối máy chủ\".\n- Đã cho robot bấm thử 145 nút trên cả 2 trang (mọi mục, có bật thiết kế / overlay / lớp ảnh): không lỗi JavaScript, không lỗi máy chủ, không trùng id; mọi đường dẫn giao diện gọi đều có trên máy chủ.",
+ "files": {
+  "procs.py": {
+   "sha256": "3eaee398d837d1aa3f8f0bf41d2572dda153e7e2d9bc57d6336652f47cea0c70",
+   "size": 4728
+  },
+  "tests/test_procs.py": {
+   "sha256": "507f06e7adaeb4b9b15ca393f391fa095d97c11151f926455a42baf5b21f453d",
+   "size": 3805
+  },
+  "ffmpeg_setup.py": {
+   "sha256": "f66eb85abf503510412af3b364a9e5e10558cc92a8caa4153aa07bbc44a227ab",
+   "size": 4524
+  },
+  "system_check.py": {
+   "sha256": "470d85dbfc8eb57ac6b7229b3a9779475c758af27c5c8f25b01d4f4661aed420",
+   "size": 9478
+  },
+  "system_ui.js": {
+   "sha256": "8194d8977e5b60037a075fc3b3990724838b51ba3b32a4e0d24ccb53d5618e33",
+   "size": 4470
+  },
+  "tests/test_system_check.py": {
+   "sha256": "72bdf3b1aa757c30a96b15260176271b255a9efa0d347351b48ed65a3cb91ad6",
+   "size": 2191
+  },
+  "compat.js": {
+   "sha256": "a8ddbb6481917d970691f2f6185f28f2a2234c7c6e9052395ff9c43f4130b395",
+   "size": 4185
+  },
+  "video_tools.js": {
+   "sha256": "bfb530363a3f15a63cc8c541fd9a18ea22fc684207007cb2167abf4747fac9cd",
+   "size": 5003
+  },
+  "tests/test_batch.py": {
+   "sha256": "17e1d5331bdb1b717fe7c5068eaf0c3e11089252d3e93dd76b485b8112efbbb0",
+   "size": 32602
+  },
+  "win_meta.py": {
+   "sha256": "228d18deb126f8965807b7c3a7d2249007da30d88f3a6bbf04493deb52b989a8",
+   "size": 6429
+  },
+  "ai_texts.py": {
+   "sha256": "4e0052352efae7d10d524ba7e41df4c2a322438e5809d3a6bb709f1a47bbccd1",
+   "size": 5446
+  },
+  "tests/test_ai_texts.py": {
+   "sha256": "3f3055b2468f39adafd9b04853cab403f2e831daf771d872f17f8254f83529d5",
+   "size": 25049
+  },
+  "design_tab.js": {
+   "sha256": "3a992ccac8843607509e8f9e7f25ff464432e8c5cbcb34cc8b591a927a07e4f1",
+   "size": 43236
+  },
+  "local_files.js": {
+   "sha256": "b9a975e980db7f5f013f6046d58228fb39817b6959e8caaf9505c4ba3cc898a7",
+   "size": 3453
+  },
+  "demucs_runner.py": {
+   "sha256": "426b21e67e115d21426f0ba38d0febe8707c0dd6336f7891396a59ec55500c0d",
+   "size": 1050
+  },
+  "update.py": {
+   "sha256": "4e05342e93b7a183fc4288e0fa1b87a9bbf0948ae552696ba605dc0576184532",
+   "size": 9422
+  },
+  "UPDATE_WINDOWS.bat": {
+   "sha256": "2da8f76eaae5ffbff33ca0677350853d9895523e124d6ed73050c11d99cd1d22",
+   "size": 212
+  },
+  "tests/test_update.py": {
+   "sha256": "7d0fd19e1e34851342c457aae2bdab795ff2aec2bd43160557a7f8d9445b97ed",
+   "size": 7510
+  },
+  "update_ui.js": {
+   "sha256": "f4a5051f4fe780188189c2decb37914c65cd58147c8a3503bc535a5f12b4f0ab",
+   "size": 5181
+  },
+  "dub_ui.js": {
+   "sha256": "5bd11c9153a63068455d1e70181f32657f8176ef5d262da1e3a4b57a5abf9dfb",
+   "size": 179305
+  },
+  "key_ui.js": {
+   "sha256": "4c1833943a21476f6e515115af555c36a4d763bbc5c1122f111cad0a5065574d",
+   "size": 5667
+  },
+  "secrets_store.py": {
+   "sha256": "fce1367bbdd2c6103533bc3d3a61242b3093b253655bd29597bca79f1c517b23",
+   "size": 2610
+  },
+  "dubbing.py": {
+   "sha256": "5397ac96847e3e608efa460431a3036015573ee3d768c43a6fbe2fc03d95c131",
+   "size": 213839
+  },
+  "tests/test_dubbing.py": {
+   "sha256": "8cfed9a4e9864a8e0341fdb2ea88e0def7e5a977eabe87d8414bb60f0563794e",
+   "size": 52852
+  },
+  "image_ui.js": {
+   "sha256": "ef72d2cff35041a912eb2994e80bcf90082ab5f0a478c915f2b143f67ed81bae",
+   "size": 13492
+  },
+  "export_ui.js": {
+   "sha256": "1329b60d2c25d262f68bedad5b73aa9b476249b81005e00c980bf98bdf090652",
+   "size": 8125
+  },
+  "output_folder.py": {
+   "sha256": "4071b03b64bb4d6ecc0b87045c7f0f3e92caecc2d4c5e83f052fb9e6a1a910ab",
+   "size": 6921
+  },
+  "library_store.py": {
+   "sha256": "8e5aa00350374c88245b8d2c0fc009e182d3c2a77487015e6cef6e1aff48e342",
+   "size": 3666
+  },
+  "history_ui.js": {
+   "sha256": "1784fbf54a9878ec8c8cfaa03fe3c6b5414283cdbc82868bc01dbc01a10380d0",
+   "size": 5710
+  },
+  "media_preview.py": {
+   "sha256": "a9209c714103e4fefe1c562570804a3afb601ed9ca1d0339a9b9b2849f2a65c9",
+   "size": 1872
+  },
+  "tests/test_editor_controls.py": {
+   "sha256": "376782c32b1e0a90392eadbe445304222f5fa04fd622e452bdf026a3966dbb86",
+   "size": 3640
+  },
+  "asset_store.py": {
+   "sha256": "adbcdfb545d70bbccab99488a79aa9a0a8fe5f1ef9bf380984f7de784dc83a0b",
+   "size": 2104
+  },
+  "media_engine.py": {
+   "sha256": "13882f4d67037b9f1a64a0b352b5baa180e828a469e1f4a9fcd12554ba52689a",
+   "size": 21185
+  },
+  "editor_ui.js": {
+   "sha256": "d19a3b444663d256c39b10ec65cd20969da5bd4c60282c5a59873977f5a53094",
+   "size": 41117
+  },
+  "tests/test_media_engine.py": {
+   "sha256": "dd2e3b438d4df3b407ef3bb1df1ea6887ebf1c21d2806f4280b38d421ba673fe",
+   "size": 13961
+  },
+  "app.py": {
+   "sha256": "b0ada499f4103211b48b309ca274b94c8aa77fbcdb518b11af25dfb4d76dd98a",
+   "size": 65991
+  },
+  "ai33_audio.py": {
+   "sha256": "64c870ef291fbd725d4cdae68bc841d437040110ca83e429e1ff0b15ebf1fe5b",
+   "size": 27303
+  },
+  "audio_files.py": {
+   "sha256": "0a9bdf3f385a5a9627172e2930bcbd0482d59a3cf73aaae40714a54da9eed654",
+   "size": 9810
+  },
+  "audio_ui.js": {
+   "sha256": "1ae37dd08231eb6f8612e9098bc23b381d64555dcabf223e4911a9eb2f54bac3",
+   "size": 28722
+  },
+  "ai_translate.py": {
+   "sha256": "e342f4fbb05c503401484744887bf8ad14ce2ce70f934e9ee425732c1fc42246",
+   "size": 13467
+  },
+  "studio.css": {
+   "sha256": "99c2a83e6deb8c42284525759e0404372e9dc396738dbf4cfbf189632a78305a",
+   "size": 109371
+  },
+  "studio.js": {
+   "sha256": "e2ebb2f8bb72ba3bee02faa67609c6859a96a3ad16be04fe28e6aba60519f7bc",
+   "size": 30713
+  },
+  "design.py": {
+   "sha256": "0ce1d7d212774d94cc8f7cfe4f651f0c4db68e32d0f11a1527c2547d1b0e5ab9",
+   "size": 19096
+  },
+  "fonts.py": {
+   "sha256": "c7eca5ed64772ab480c76ef43e14e230999916440508e130758af37fe565b04c",
+   "size": 6858
+  },
+  "index.html": {
+   "sha256": "4433a463287994f6558cb8e1a26762b976c45197877efecb7aace6e0c8a73018",
+   "size": 24220
+  },
+  "launch.py": {
+   "sha256": "3a73cebee01ed4db1acf4bd52cd469ee948ebf6f6aab459243fa75b0afe5a419",
+   "size": 5476
+  },
+  "build_package.py": {
+   "sha256": "a5e7219ee6e55fb03ebf3d6c64db29c550ce6dfc082f701be505d87355fe8d04",
+   "size": 3347
+  },
+  "START_WINDOWS.bat": {
+   "sha256": "45917335d9a938e178467107e9ceeaed5daecef10ca9351015867336746a6957",
+   "size": 1411
+  },
+  "HUONG_DAN.txt": {
+   "sha256": "535fabe199d952c1de483cbf561b1e62e19e2d830d49e3e484bc9bd185f46ea2",
+   "size": 15917
+  },
+  "README.md": {
+   "sha256": "c2370e298ff9c80bcb4e9641f4101c5743485c8f0d61cfb303064eb75b65f145",
+   "size": 40492
+  },
+  "VERSION": {
+   "sha256": "3019bdb106d042ba1f7cf88d1dd844530076d5ff49f6b88e48316a3e1e05d9da",
+   "size": 7
+  },
+  ".gitignore": {
+   "sha256": "28e248862fca9a61c12949e6f0dbe2c02452c146b9f30462b6c7fd430dfa2647",
+   "size": 32
+  },
+  "tests/test_storage.py": {
+   "sha256": "4ff9454ea2fd064479e1d26f28d6c43db6ffa5a68234df869b14e35bf9bb75d7",
+   "size": 8536
+  },
+  "tests/test_design.py": {
+   "sha256": "a8cccbf146af503c0f0565b83bbe5dd528f4c13aeed57a5d0410784f6cc57995",
+   "size": 7022
+  },
+  "tests/test_ai33_audio.py": {
+   "sha256": "1bc21f3eddeb8beee49eab73c862336c17147fd7cea0755d9ad7b00065c55686",
+   "size": 13134
+  },
+  "tests/test_audio_cache.py": {
+   "sha256": "c1881d2da6f33b65d9de414b7928b9f852e7f0e57267223a7e77211fda371cb3",
+   "size": 2120
+  },
+  "docs/ai33-api.md": {
+   "sha256": "89c19bca37101b46b26f08694f2900e142b6708ecb15c0b3ca34a8a7c947e9c5",
+   "size": 7761
+  },
+  "assets/DejaVuSans.ttf": {
+   "sha256": "57f73e11f51999432bf7ab22ce55b6f945d5eca1bf824404cfa9ec2e3718c84e",
+   "size": 759720
+  },
+  "assets/DejaVuSans-Bold.ttf": {
+   "sha256": "a4c5bc453ca281d90ea079e596da7ae0dfeb5777497c29ec254e76d97ff6f890",
+   "size": 708920
+  },
+  "assets/DejaVuSerif.ttf": {
+   "sha256": "8cb29f7db250ebb2551a6ce2c1e0bfd5a0eb520e9e233370db0493e82e1f36f7",
+   "size": 380660
+  },
+  "assets/DejaVuSerif-Bold.ttf": {
+   "sha256": "aac3f559445d23f0f567a243f91f3f6ad6cb4b5cafa1521a3479fffe0637f0bd",
+   "size": 356668
+  },
+  "assets/DejaVuSansMono.ttf": {
+   "sha256": "54bf827eb99404e8f430c330ad30f063334f637eba0109b6a18d4f566a8e9dd8",
+   "size": 343140
+  },
+  "assets/DejaVuSansMono-Bold.ttf": {
+   "sha256": "0d3c03d1b667192f91223660a3163325cf83132662fe4d9f7d6e596bf7a995c2",
+   "size": 334268
+  },
+  "assets/FONT_LICENSE.txt": {
+   "sha256": "63d3ba759d12804c5b31a9d5940d855c1820d1f5999e6b0872eb1c7ff045fbc9",
+   "size": 3859
+  },
+  "assets/FONT_LICENSE_OFL.txt": {
+   "sha256": "9a36c4479eac8c61ebd106736824761e0adf3333b6293de37f21e0ce98295024",
+   "size": 85420
+  },
+  "assets/Anton-Regular.ttf": {
+   "sha256": "a4ba3a92350ebb031da0cb47630ac49eb265082ca1bc0450442f4a83ab947cab",
+   "size": 170812
+  },
+  "assets/Baloo2-ExtraBold.ttf": {
+   "sha256": "7b58dc8b3a21e7770aa1c1d3fdf7601116b5d9225c05b5ef423fc3f84caa6eee",
+   "size": 421792
+  },
+  "assets/Bangers-Regular.ttf": {
+   "sha256": "4160a7311de9342674cce9160cde9fcbb30f48190397d86ff1b70b455af65824",
+   "size": 93148
+  },
+  "assets/Barlow-ExtraBold.ttf": {
+   "sha256": "5234d91030e1bb89525cbaccc4386892c3fe005a0582c705264ce3572d96a1a1",
+   "size": 110228
+  },
+  "assets/Barlow-Medium.ttf": {
+   "sha256": "f8906f762cb73dca441da034bc363b2d8e2e68bc10d5c05e58717646c20cc4b4",
+   "size": 103536
+  },
+  "assets/BeVietnamPro-Black.ttf": {
+   "sha256": "dd0ec461782da7f4a58698b431a67c455ced7c09deb9c40d7b47e61975d3ffdb",
+   "size": 142612
+  },
+  "assets/BeVietnamPro-Bold.ttf": {
+   "sha256": "7f738fe5c43c8872807b20e2d30d42163618de8a4daf7f48a939adac32c16847",
+   "size": 140300
+  },
+  "assets/BeVietnamPro-Regular.ttf": {
+   "sha256": "cd1ef6e9d7db28ad5cdb88a65ccbe693870e60d340b791f349d248342b4fe4c3",
+   "size": 132948
+  },
+  "assets/Bungee-Regular.ttf": {
+   "sha256": "c4f5361ce120af3e6b9156d0bf379fa19cda2ea0cd18ac01fd99596c6bf66e3f",
+   "size": 118996
+  },
+  "assets/ChakraPetch-Bold.ttf": {
+   "sha256": "65fbf76d95651697275e19db4d717c0e95a789ddd3476478b05292104db278a0",
+   "size": 78384
+  },
+  "assets/Charm-Bold.ttf": {
+   "sha256": "6e1fa92fda7ab74fcce8ed5d7a9de10a0fb43d777590e8ef9f6931da6e932481",
+   "size": 139104
+  },
+  "assets/Coiny-Regular.ttf": {
+   "sha256": "ef02d723a54abe4819bea54ea8b2ecf72d77d258010bb336cd4862a37705eac7",
+   "size": 156520
+  },
+  "assets/FiraSans-Black.ttf": {
+   "sha256": "0ab27e9178d7f74898dd26e3a5f10eb7922bb2a88a2903e00796c4f7c7e08cc0",
+   "size": 507204
+  },
+  "assets/Itim-Regular.ttf": {
+   "sha256": "9164d7eb92ca717b53b07193e3445c96782222d24215151b8d2851b576b17645",
+   "size": 371384
+  },
+  "assets/Kanit-Bold.ttf": {
+   "sha256": "5dec5b080dab13de9d2295437c0ff3ec05c9e75587dfc31358c005eb4efa5e70",
+   "size": 176136
+  },
+  "assets/Kanit-Medium.ttf": {
+   "sha256": "50a237034244026a7c63fe55e24e0b4298babe363cde043e032075b764c545a2",
+   "size": 174628
+  },
+  "assets/Krub-Bold.ttf": {
+   "sha256": "0b8c2684736742e181f48ed7d9b0aed10ac2d4e1e3a02c8346e5300a4a07f100",
+   "size": 89564
+  },
+  "assets/Lexend-ExtraBold.ttf": {
+   "sha256": "5c54e7f1617d93426ba207c7f4ffc0516039e1113ac9247ea19f7ed5b34d5dac",
+   "size": 105516
+  },
+  "assets/Lobster-Regular.ttf": {
+   "sha256": "d6568e697fd50cedc0be04d8aae4127fe95add607e7bff954ca88604be80c205",
+   "size": 406076
+  },
+  "assets/Mali-Bold.ttf": {
+   "sha256": "3e2f421036c3f91eb5ef34650a5cd2116c737a542147769437a9856a455d4462",
+   "size": 112176
+  },
+  "assets/Mitr-Medium.ttf": {
+   "sha256": "847340933424d473bff6d011bc08543a2a2d2a670985a93e3431e3ac8926068f",
+   "size": 222116
+  },
+  "assets/Montserrat-ExtraBold.ttf": {
+   "sha256": "7eeed864fc60b7abf0abc98fb0020d374ad62a1acbd08ae08f13d82c0919d906",
+   "size": 374644
+  },
+  "assets/Nunito-Black.ttf": {
+   "sha256": "261427921d00f5760f26080b26e62d64bcdcfc5b61a6be098be333eeca52eb2c",
+   "size": 132176
+  },
+  "assets/Oswald-Bold.ttf": {
+   "sha256": "dba7a3379c1f64a10e969e55d37291ec32afa7eae5690a2566f4f3f004435eb5",
+   "size": 88928
+  },
+  "assets/Pacifico-Regular.ttf": {
+   "sha256": "5b6c0d5334a7bf77dea52b975c5a0c408878c0f7115ed5b6fb151f634b7bf701",
+   "size": 329380
+  },
+  "assets/PatrickHand-Regular.ttf": {
+   "sha256": "0f173b3e6cb6d1af25babf7f0057c5ac4ee11f9992b0469bb817e967ef4ad0fc",
+   "size": 214772
+  },
+  "assets/PaytoneOne-Regular.ttf": {
+   "sha256": "1c07073b0b578199b54c7866d55e2b631d285e8aa4bb4fbc08809d980cd49b14",
+   "size": 114648
+  },
+  "assets/Prompt-SemiBold.ttf": {
+   "sha256": "3285c9e6a4ebc480a6476a1a26b44d6eb0f9874025fa96e42afd52172b7f02b9",
+   "size": 175300
+  },
+  "assets/Quicksand-Bold.ttf": {
+   "sha256": "204d44928aa05a33e4fcd2138f67f54dd5eb6d3aa84ebc70014234e702b03640",
+   "size": 108752
+  },
+  "assets/Sriracha-Regular.ttf": {
+   "sha256": "c3128c30cb21e8724b792586c87059d1b5eceae10d9957ba2ab26c80bbed3669",
+   "size": 319896
+  }
+ }
+}

@@ -1,47 +1,40 @@
 @echo off
-setlocal
-cd /d %~dp0
-
-echo ==========================================
-echo   NGOC QUAN REVIEW STUDIO v0.1
-
-echo ==========================================
-
-where python >nul 2>nul
+cd /d "%~dp0"
+rem Python: "py" launcher, then "python" (the Microsoft Store stub does not count), else install it with winget
+call :findpy
+if not defined PYCMD (
+    echo Chua co Python 3. Dang tu cai Python 3.12 bang winget, vui long doi...
+    where winget >nul 2>nul
+    if errorlevel 1 (
+        echo Khong co winget tren may nay. Cai Python tai https://www.python.org/downloads/ ^(tick "Add Python to PATH"^) roi mo lai.
+        pause
+        exit /b 1
+    )
+    winget install -e --id Python.Python.3.12 --scope user --accept-package-agreements --accept-source-agreements
+    set "PATH=%LocalAppData%\Programs\Python\Python312;%LocalAppData%\Programs\Python\Python312\Scripts;%LocalAppData%\Programs\Python\Launcher;%PATH%"
+    call :findpy
+)
+if not defined PYCMD (
+    echo Da cai Python nhung chua nhan. Dong cua so nay va mo lai START_WINDOWS.bat.
+    pause
+    exit /b 1
+)
+rem FFmpeg is downloaded by launch.py itself when it is missing
+%PYCMD% launch.py
 if errorlevel 1 (
-  echo [LOI] Khong tim thay Python. Hay cai Python 3.11 tro len.
-  pause
-  exit /b 1
+    echo.
+    echo Xem HUONG_DAN.txt de cai Python va FFmpeg.
+    pause
 )
+exit /b
 
-if not exist .venv (
-  echo [1/4] Tao moi moi truong Python...
-  python -m venv .venv
-  if errorlevel 1 goto :fail
+:findpy
+set "PYCMD="
+py -3 -c "import sys; sys.exit(0 if sys.version_info >= (3, 11) else 1)" >nul 2>nul
+if not errorlevel 1 (
+    set "PYCMD=py -3"
+    exit /b
 )
-
-call .venv\Scripts\activate.bat
-
-echo [2/4] Cai / cap nhat thu vien...
-python -m pip install --upgrade pip >nul
-pip install -r requirements.txt
-if errorlevel 1 goto :fail
-
-where ffmpeg >nul 2>nul
-if errorlevel 1 (
-  echo [CANH BAO] Chua tim thay FFmpeg trong PATH.
-  echo Tool van mo duoc, nhung cac chuc nang xu ly video sau nay se can FFmpeg.
-)
-
-echo [3/4] Khoi dong server...
-start "" http://127.0.0.1:8000
-
-echo [4/4] Dang chay tai http://127.0.0.1:8000
-python app.py
-exit /b 0
-
-:fail
-echo.
-echo [LOI] Cai dat / khoi dong that bai.
-pause
-exit /b 1
+python -c "import sys; sys.exit(0 if sys.version_info >= (3, 11) else 1)" >nul 2>nul
+if not errorlevel 1 set "PYCMD=python"
+exit /b
