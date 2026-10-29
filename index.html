@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ngọc Quân Review Studio</title>
+  <link rel="stylesheet" href="/static/app.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Ngọc Quân Review Studio</h1>
+      <p>v0.1 · Video · Timeline · Voice · Audio · Text</p>
+    </div>
+    <div class="status" id="status">Đang kiểm tra hệ thống…</div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <section class="panel" open>
+        <h2>1. Video đầu vào</h2>
+        <input id="fileInput" type="file" accept="video/*,audio/*" multiple />
+        <button id="pickBtn">Chọn video / audio</button>
+        <div id="mediaList" class="media-list"></div>
+      </section>
+
+      <section class="panel">
+        <h2>2. Layer</h2>
+        <button data-layer="video">+ Video</button>
+        <button data-layer="audio">+ Audio</button>
+        <button data-layer="voice">+ Voice</button>
+        <button data-layer="text">+ Text</button>
+      </section>
+
+      <section class="panel">
+        <h2>3. Text</h2>
+        <input id="textValue" placeholder="Nhập nội dung chữ" />
+        <label>Cỡ chữ <input id="fontSize" type="range" min="16" max="96" value="42" /></label>
+        <label>Màu chữ <input id="fontColor" type="color" value="#ffffff" /></label>
+        <button id="addText">Thêm text lên preview</button>
+      </section>
+
+      <section class="panel">
+        <h2>4. Voice</h2>
+        <textarea id="voiceText" rows="5" placeholder="Nhập lời đọc…"></textarea>
+        <button disabled title="Sẽ nối TTS ở bản tiếp theo">Tạo voice (sắp có)</button>
+      </section>
+    </aside>
+
+    <section class="workspace">
+      <div class="preview-wrap">
+        <div id="stage" class="stage">
+          <video id="preview" controls></video>
+          <div id="textOverlay" class="text-overlay"></div>
+        </div>
+      </div>
+
+      <div class="transport">
+        <button id="playBtn">▶ Phát / Dừng</button>
+        <span id="timeLabel">00:00 / 00:00</span>
+      </div>
+
+      <div class="timeline" id="timeline">
+        <div class="ruler">Timeline</div>
+        <div class="track"><span>VIDEO</span><div id="videoClip" class="clip clip-video">Chưa có video</div></div>
+        <div class="track"><span>AUDIO</span><div class="clip clip-audio">Audio layer</div></div>
+        <div class="track"><span>VOICE</span><div class="clip clip-voice">Voice layer</div></div>
+        <div class="track"><span>TEXT</span><div id="textClip" class="clip clip-text">Text layer</div></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
