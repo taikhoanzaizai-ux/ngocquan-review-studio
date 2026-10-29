@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import shutil
 import subprocess
 from pathlib import Path
@@ -14,7 +15,7 @@ STATIC_DIR = BASE_DIR / "static"
 MEDIA_DIR = BASE_DIR / ".local" / "media"
 MEDIA_DIR.mkdir(parents=True, exist_ok=True)
 
-app = FastAPI(title="Ngoc Quan Review Studio", version="0.1.0")
+app = FastAPI(title="Ngoc Quan Review Studio", version="0.1.1")
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 app.mount("/media", StaticFiles(directory=MEDIA_DIR), name="media")
 
@@ -41,7 +42,7 @@ def health() -> dict[str, Any]:
     return {
         "ok": True,
         "app": "Ngoc Quan Review Studio",
-        "version": "0.1.0",
+        "version": "0.1.1",
         "ffmpeg": command_version("ffmpeg"),
         "ffprobe": command_version("ffprobe"),
     }
@@ -75,4 +76,6 @@ async def upload(file: UploadFile = File(...)) -> dict[str, Any]:
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("app:app", host="127.0.0.1", port=8000, reload=False)
+    host = os.environ.get("REVIEW_STUDIO_HOST", "127.0.0.1")
+    port = int(os.environ.get("PORT", "8000"))
+    uvicorn.run("app:app", host=host, port=port, reload=False)
