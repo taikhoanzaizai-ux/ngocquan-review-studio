@@ -1,13 +1,27 @@
 #!/usr/bin/env bash
-set -e
+set -u
 cd "$(dirname "$0")"
 
-python -m pip install -r requirements.txt
+python -m pip install -r requirements.txt || {
+  echo "[WARN] pip install failed; trying to continue with existing environment."
+}
 
 if ! command -v ffmpeg >/dev/null 2>&1 || ! command -v ffprobe >/dev/null 2>&1; then
-  echo "FFmpeg/FFprobe not found. Installing..."
-  sudo apt-get update
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install -y ffmpeg
+  echo "FFmpeg/FFprobe not found. Trying to install..."
+
+  # Some Codespaces images may contain a stale Yarn apt source with a missing GPG key.
+  # Disable only that broken source so apt can continue.
+  while IFS= read -r src; do
+    [ -n "$src" ] || continue
+    echo "Disabling broken Yarn apt source: $src"
+    sudo mv "$src" "$src.disabled" 2>/dev/null || true
+  done < <(grep -RIl "dl.yarnpkg.com" /etc/apt/sources.list /etc/apt/sources.list.d 2>/dev/null || true)
+
+  if sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get install -y ffmpeg; then
+    echo "FFmpeg installed successfully."
+  else
+    echo "[WARN] Could not install FFmpeg. The web app will still start, but export/video-processing features may be unavailable."
+  fi
 fi
 
 mkdir -p .local/logs
